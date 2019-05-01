@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class sieveOfEratosthenes {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner(System.in);
+		int n = 0;
+
+		System.out.println("please enter the number for which you would like all primes below");
+		n = sc.nextInt();
+		System.out.println("Here are the prime numbers smaller than or equal to " +n);
+		sieveOfEratosthenes compute = new sieveOfEratosthenes();
+		compute.sieveOfEratosthenes(n);
+	}
+
+	void sieveOfEratosthenes(int n) {
+
+		// create a boolean array and initialise all array slot numbers to true
+		// the value of primeNumber[i] will be turned to false if it is not prime
+		boolean primeNumber[] = new boolean[n + 1];
+		for (int i = 0; i < n; i++) {
+			primeNumber[i] = true;
+		}
+		// determining whether prime or not process
+		// p starts at 2 (1 is not prime...sorry!) and works its way up to the square
+		// root of n (this is a far as we need to go)
+		for (int p = 2; p < Math.sqrt(n); p++) {
+			if (primeNumber[p] == true) {
+				// the algorithm finds multiples of p within the given range
+				// and marks them as false as they will not be prime.
+				for (int i = p * p; i < n; i = i + p) {
+					primeNumber[i] = false;
+				}
+			}
+		}
+		// Print the remaining true values of primeNumber[] which will be the prime
+		// numbers
+		for (int i = 2; i <= n; i++) {
+			if (primeNumber[i] == true) {
+				System.out.print(i + " ");
+			}
+
+		}
+	}
+}
